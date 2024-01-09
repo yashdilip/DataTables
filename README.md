@@ -1,0 +1,1 @@
+This application is to showcase about Spring Boot 3, Data JPA, jQuery DataTables. This also showcase the use case of [spring-data-jpa-datatables](https://github.com/darrachequesne/spring-data-jpa-datatables) plugin used to built custom filters for the tables.
