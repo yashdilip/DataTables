@@ -27,6 +27,12 @@
                         <span id="gender_menu_placeholder"></span>
                     </div>
                 </div>
+                <div class="row">
+                    <label class="form-label">City:</label>
+                    <div class="dropdown">
+                        <span id="city_menu_placeholder"></span>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-9 col-lg-10">
@@ -40,6 +46,11 @@
                             <th>Position</th>
                             <th>Gender</th>
                             <th>Salary</th>
+                            <th>Street</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Zip</th>
+                            <th>Country</th>
                         </tr>
                         </thead>
                     </table>
@@ -78,6 +89,21 @@
                 {
                     data: 'salary',
                     render: function (data) { return  '$' + data; }
+                },
+                {
+                    data: 'address.street'
+                },
+                {
+                    data: 'address.city'
+                },
+                {
+                    data: 'address.state'
+                },
+                {
+                    data: 'address.zip'
+                },
+                {
+                    data: 'address.country'
                 }
             ],
             pagingType: 'full_numbers',
@@ -134,6 +160,26 @@
                     });
 
                     json.searchPanes.options.gender
+                        .forEach(function(o) {
+                            select.append('<option value="' + o.value + '" class="dropdown-item">' + o.label + '</option>')
+                        });
+                });
+
+                //city filter
+                this.api().columns(7).every(function() {
+                    var column = this;
+                    var select = $('<select><option value="" class="dropdown-item"></option></select>')
+                    .appendTo($("#city_menu_placeholder").empty())
+                    .on('change', function() {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+                        column
+                            .search(val)
+                            .draw();
+                    });
+
+                    json.searchPanes.options.city
                         .forEach(function(o) {
                             select.append('<option value="' + o.value + '" class="dropdown-item">' + o.label + '</option>')
                         });

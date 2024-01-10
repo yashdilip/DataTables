@@ -1,8 +1,6 @@
 package com.example.datatables;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "_employee")
+@Table(name = "employee")
 public class Employee {
     @Id
     private int id;
@@ -22,4 +20,8 @@ public class Employee {
     private String position;
     private String gender;
     private double salary;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_office")
+    private Address address;
 }
